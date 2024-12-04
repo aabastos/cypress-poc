@@ -10,7 +10,7 @@ export const useNetwork = () => {
 
   const interceptor = useCallback(
     async (config: InternalAxiosRequestConfig) => {
-      config.headers!.Authorization = `Bearer`
+      config.headers!.Authorization = `Bearer ${process.env.REACT_APP_API_TOKEN}`
 
       return config
     },

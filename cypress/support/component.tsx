@@ -14,12 +14,14 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import { MemoryRouterProps, MemoryRouter } from 'react-router-dom'
 import './commands'
+import '../../src/index.scss'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import { mount } from 'cypress/react18'
+import { mount, MountOptions, MountReturn } from 'cypress/react18'
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -28,12 +30,26 @@ import { mount } from 'cypress/react18'
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount
+      /**
+       * Mounts a React node
+       * @param component React Node to mount
+       * @param options Additional options to pass into mount
+       */
+      mount(
+        component: React.ReactNode,
+        options?: MountOptions & { routerProps?: MemoryRouterProps }
+      ): Cypress.Chainable<MountReturn>
     }
   }
 }
 
-Cypress.Commands.add('mount', mount)
+Cypress.Commands.add('mount', (component, options = {}) => {
+  const { routerProps = { initialEntries: ['/'] }, ...mountOptions } = options
+
+  const wrapped = <MemoryRouter {...routerProps}>{component}</MemoryRouter>
+
+  return mount(wrapped, mountOptions)
+})
 
 // Example use:
 // cy.mount(<MyComponent />)
