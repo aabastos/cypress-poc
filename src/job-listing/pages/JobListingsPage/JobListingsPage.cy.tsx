@@ -1,5 +1,5 @@
 import { Mock } from "test.utils";
-import { JobListingsPage } from "./JobListingsPage";
+import { JobListingsPage } from "job-listing/pages/JobListingsPage/JobListingsPage";
 import { JobListing } from "job-listing/domain";
 
 describe('<JobListingsPage />', () => {

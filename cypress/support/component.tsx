@@ -17,7 +17,7 @@
 import { MemoryRouterProps, MemoryRouter } from 'react-router-dom'
 import './commands'
 import '../../src/index.scss'
-
+import 'reflect-metadata';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
